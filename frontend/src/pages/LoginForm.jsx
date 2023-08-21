@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Center,
-  Container,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -12,28 +11,67 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import AuthButton from "../components/NavButton";
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useLoginMutation } from "../slices/usersApiSlice";
+import { setCredentials } from "../slices/authSlice";
+
+import { useToast } from "@chakra-ui/react";
 
 const LoginForm = () => {
+  const chakraToast = useToast();
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // if userInfo is already there, navigate to home page
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+
+  async function onSubmit(values) {
+    console.log(values);
+    try {
+      const res = await login({
+        email: values.email,
+        password: values.password,
+      }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      let error = err?.data?.message || err.error;
+      chakraToast({
+        description: error,
+        status: "error",
+        duration: 8000,
+        isClosable: true,
+        position: "top",
+      });
+    }
   }
+
   return (
     <Center>
       <Card w="2xl" variant="outline" px="40" py="20" boxShadow="lg">
         <Center>
-          <Heading pb={8}>Sign In</Heading>
+          <Heading pb={8} textTransform="uppercase" fontWeight={"medium"}>
+            Sign In
+          </Heading>
         </Center>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack>
@@ -82,9 +120,10 @@ const LoginForm = () => {
                 colorScheme="teal"
                 isLoading={isSubmitting}
                 type="submit"
-                fontWeight="medium"
+                fontWeight="light"
                 px={6}
                 fontSize={"lg"}
+                textTransform="uppercase"
               >
                 Sign In
               </Button>

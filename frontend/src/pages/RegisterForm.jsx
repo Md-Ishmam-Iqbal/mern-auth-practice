@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Center,
-  Container,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -21,18 +20,16 @@ const RegisterForm = () => {
   } = useForm();
 
   function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
+    console.log(JSON.stringify(values, null, 2));
   }
+
   return (
     <Center>
       <Card w="2xl" variant="outline" px="40" py="20" boxShadow="lg">
         <Center>
-          <Heading pb={8}>Sign Up</Heading>
+          <Heading pb={8} textTransform="uppercase" fontWeight={"medium"}>
+            Sign Up
+          </Heading>
         </Center>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack>
@@ -92,15 +89,32 @@ const RegisterForm = () => {
                 {errors.password && errors.password.message}
               </FormErrorMessage>
             </FormControl>
+            <FormControl isInvalid={errors.confirmPassword}>
+              <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+              <Input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                {...register("confirmPassword", {
+                  required: "This is required",
+                  validate: (value) =>
+                    value === "password" || "Passwords do not match", // Validation logic
+                })}
+              />
+              <FormErrorMessage>
+                {errors.confirmPassword && errors.confirmPassword.message}
+              </FormErrorMessage>
+            </FormControl>
             <Center>
               <Button
                 mt={12}
                 colorScheme="teal"
                 isLoading={isSubmitting}
                 type="submit"
-                fontWeight="medium"
+                fontWeight="light"
                 px={6}
                 fontSize={"lg"}
+                textTransform="uppercase"
               >
                 Sign Up
               </Button>

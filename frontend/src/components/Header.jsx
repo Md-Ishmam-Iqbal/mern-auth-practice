@@ -25,8 +25,8 @@ const Header = () => {
       </Box>
       <Spacer />
       <ButtonGroup gap="6" mx={4}>
-        <NavButton text="Sign In" icon={PiSignInDuotone} link={`/login`} />
-        <NavButton text="Sign Up" icon={PiSignOutDuotone} link={`/register`} />
+        <NavButton text="sign in" icon={PiSignInDuotone} link={`/login`} />
+        <NavButton text="sign up" icon={PiSignOutDuotone} link={`/register`} />
       </ButtonGroup>
     </Flex>
   );

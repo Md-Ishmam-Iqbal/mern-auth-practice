@@ -30,9 +30,9 @@ const Hero = () => {
         </CardBody>
         <Container w="full" centerContent mt={8}>
           <ButtonGroup gap="6" mx={4}>
-            <NavButton text="Sign In" icon={PiSignInDuotone} link={`/login`} />
+            <NavButton text="sign in" icon={PiSignInDuotone} link={`/login`} />
             <NavButton
-              text="Sign Up"
+              text="sign up"
               icon={PiSignOutDuotone}
               link={`/register`}
             />
