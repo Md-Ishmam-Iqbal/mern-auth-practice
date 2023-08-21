@@ -65,7 +65,10 @@ const registerUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
   const token = req.cookies.jwt;
 
-  console.log(token);
+  if (!token) {
+    res.status(400);
+    throw new Error("User not logged in");
+  }
 
   // Is token in blacklist?
   const blacklistedToken = await BlacklistToken.findOne({ token });
@@ -86,14 +89,39 @@ const logoutUser = asyncHandler(async (req, res) => {
 // route    POST api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "User profile" });
+  const user = {
+    _id: req.user._id,
+    email: req.user.email,
+    name: req.user.name,
+  };
+  res.status(200).json(user);
 });
 
 // @desc    Update user profile
 // route    PUT api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Update user profile" });
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password !== undefined) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      email: updatedUser.email,
+      name: updatedUser.name,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 export {
