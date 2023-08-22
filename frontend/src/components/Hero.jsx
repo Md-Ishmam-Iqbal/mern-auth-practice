@@ -2,10 +2,8 @@ import {
   ButtonGroup,
   Card,
   CardBody,
-  CardFooter,
   Center,
   Heading,
-  Stack,
   Text,
   CardHeader,
   Container,
@@ -16,7 +14,17 @@ import NavButton from "./NavButton";
 const Hero = () => {
   return (
     <Center>
-      <Card w="4xl" boxShadow="dark-lg" px="24" py="16">
+      <Card
+        w="4xl"
+        px="24"
+        variant="unstyled"
+        py="16"
+        _hover={{
+          boxShadow: "xl",
+          transition: "box-shadow 0.3s ease", // Add the transition property
+        }}
+        transition="box-shadow 0.3s ease"
+      >
         <CardHeader>
           <Heading size="xl" color="teal.900">
             MERN Auth

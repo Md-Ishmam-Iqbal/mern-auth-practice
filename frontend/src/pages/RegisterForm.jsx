@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+
+import { useToast } from "@chakra-ui/react";
+
+import { useRegisterMutation } from "../slices/usersApiSlice";
+import { setCredentials } from "../slices/authSlice";
 
 import {
   Button,
@@ -11,16 +18,51 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const chakraToast = useToast();
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(values) {
-    console.log(JSON.stringify(values, null, 2));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [signup, { isLoading, error }] = useRegisterMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // if userInfo is already there, navigate to home page
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
+
+  async function onSubmit(values) {
+    console.log(values);
+    try {
+      const res = await signup({
+        email: values.email,
+        name: values.name,
+        password: values.password,
+      }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (err) {
+      let error = err?.data?.message || err.error;
+      chakraToast({
+        description: error,
+        status: "error",
+        duration: 8000,
+        isClosable: true,
+        position: "top",
+      });
+    }
   }
 
   return (
@@ -33,12 +75,12 @@ const RegisterForm = () => {
         </Center>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack>
-            <FormControl isInvalid={errors.username}>
-              <FormLabel htmlFor="username">Username</FormLabel>
+            <FormControl isInvalid={errors.name}>
+              <FormLabel htmlFor="name">Username</FormLabel>
               <Input
-                id="username"
-                placeholder="Username"
-                {...register("username", {
+                id="name"
+                placeholder="John Doe"
+                {...register("name", {
                   required: "This is required",
                   minLength: {
                     value: 4,
@@ -47,14 +89,14 @@ const RegisterForm = () => {
                 })}
               />
               <FormErrorMessage>
-                {errors.username && errors.username.message}
+                {errors.name && errors.name.message}
               </FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors.email}>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
-                placeholder="Email"
+                placeholder="example@email.com"
                 {...register("email", {
                   required: "This is required",
                   maxLength: {
