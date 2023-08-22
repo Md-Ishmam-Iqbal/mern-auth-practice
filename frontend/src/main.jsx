@@ -14,6 +14,8 @@ import "./index.css";
 import Home from "./pages/Home.jsx";
 import LoginForm from "./pages/LoginForm.jsx";
 import RegisterForm from "./pages/RegisterForm.jsx";
+import Profile from "./pages/Profile.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +23,10 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} />
       <Route index={true} path="/login" element={<LoginForm />} />
       <Route index={true} path="/register" element={<RegisterForm />} />
+      {/* Private Routes */}
+      <Route path="" element={<PrivateRoute />}>
+        <Route index={true} path="/profile" element={<Profile />} />
+      </Route>
     </Route>
   )
 );

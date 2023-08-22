@@ -7,11 +7,16 @@ import {
   Text,
   CardHeader,
   Container,
+  Button,
 } from "@chakra-ui/react";
 import { PiSignInDuotone, PiSignOutDuotone } from "react-icons/pi";
+import { RiAccountCircleLine } from "react-icons/ri";
 import NavButton from "./NavButton";
+import { useSelector } from "react-redux";
 
 const Hero = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <Center>
       <Card
@@ -38,12 +43,28 @@ const Hero = () => {
         </CardBody>
         <Container w="full" centerContent mt={8}>
           <ButtonGroup gap="6" mx={4}>
-            <NavButton text="sign in" icon={PiSignInDuotone} link={`/login`} />
-            <NavButton
-              text="sign up"
-              icon={PiSignOutDuotone}
-              link={`/register`}
-            />
+            {userInfo ? (
+              <>
+                <NavButton
+                  text="profile"
+                  icon={RiAccountCircleLine}
+                  link={`profile`}
+                />
+              </>
+            ) : (
+              <>
+                <NavButton
+                  text="sign in"
+                  icon={PiSignInDuotone}
+                  link={`/login`}
+                />
+                <NavButton
+                  text="sign up"
+                  icon={PiSignOutDuotone}
+                  link={`/register`}
+                />
+              </>
+            )}
           </ButtonGroup>
         </Container>
       </Card>

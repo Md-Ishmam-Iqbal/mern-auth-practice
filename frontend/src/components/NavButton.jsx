@@ -5,9 +5,7 @@ const NavButton = ({ text, icon, link }) => {
   let navigate = useNavigate();
   let variant;
   let iconColor;
-  text === "sign up" || text === "profile"
-    ? (variant = "solid")
-    : (variant = "outline");
+  text === "sign up" ? (variant = "solid") : (variant = "outline");
   text === "sign up" ? (iconColor = "white") : (iconColor = "teal.500");
   return (
     <Button
