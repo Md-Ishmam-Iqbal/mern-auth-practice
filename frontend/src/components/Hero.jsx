@@ -26,19 +26,19 @@ const Hero = () => {
         py="16"
         _hover={{
           boxShadow: "xl",
-          transition: "box-shadow 0.3s ease", // Add the transition property
+          transition: "box-shadow 0.3s ease",
         }}
         transition="box-shadow 0.3s ease"
       >
         <CardHeader>
-          <Heading size="xl" color="teal.900">
-            MERN Auth
+          <Heading size="xl" color="teal.900" pb="10">
+            {userInfo ? `Hello, ${userInfo.name}` : `MERN Auth`}
           </Heading>
         </CardHeader>
         <CardBody>
           <Text color="teal.800" fontWeight="medium" fontSize="md">
-            My MERN Authentication backend boilerplate. This client is just a
-            placeholder to showcase the functionalities.
+            This is my MERN Authentication backend boilerplate. This client is
+            just a placeholder to showcase the functionalities.
           </Text>
         </CardBody>
         <Container w="full" centerContent mt={8}>

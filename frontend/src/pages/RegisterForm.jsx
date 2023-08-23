@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { useToast } from "@chakra-ui/react";
 
-import { useRegisterMutation } from "../slices/usersApiSlice";
+import { useSignupMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 
 import {
@@ -32,7 +32,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [signup, { isLoading, error }] = useRegisterMutation();
+  const [signup, { isLoading, error }] = useSignupMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -56,6 +56,7 @@ const RegisterForm = () => {
     } catch (err) {
       let error = err?.data?.message || err.error;
       chakraToast({
+        title: "Error",
         description: error,
         status: "error",
         duration: 8000,
@@ -74,9 +75,9 @@ const RegisterForm = () => {
           </Heading>
         </Center>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack>
+          <VStack spacing={6}>
             <FormControl isInvalid={errors.name}>
-              <FormLabel htmlFor="name">Username</FormLabel>
+              <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 id="name"
                 placeholder="John Doe"

@@ -56,6 +56,7 @@ const LoginForm = () => {
     } catch (err) {
       let error = err?.data?.message || err.error;
       chakraToast({
+        title: "Error",
         description: error,
         status: "error",
         duration: 8000,
@@ -74,12 +75,12 @@ const LoginForm = () => {
           </Heading>
         </Center>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack>
+          <VStack spacing={6}>
             <FormControl isInvalid={errors.email}>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
-                placeholder="Email"
+                placeholder="example@email.com"
                 {...register("email", {
                   required: "This is required",
                   maxLength: {

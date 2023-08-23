@@ -9,7 +9,7 @@ function App() {
         templateAreas={`"header" "header"
         "main" "main"`}
         gap="10"
-        h="100vh"
+        h="95vh"
       >
         <GridItem area={"header"}>
           <Header />
