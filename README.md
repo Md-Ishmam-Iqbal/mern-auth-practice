@@ -4,6 +4,18 @@ This is my mern-auth backend boilerplate to be used on other applications that u
 
 Inspired from the mern auth implementation [tutorial](https://youtu.be/R4AhvYORZRY) by traversy media.
 
+# On your local machine
+
+- Clone the repo in your desired directory
+  - `git clone git@github.com:Md-Ishmam-Iqbal/mern-auth-practice.git mern-auth`
+  - `cd mern-auth`
+- Install dependencies
+  - In frontend directory run `npm install`
+  - In root directory run `npm install`
+- Run the app
+  - In root directory run `npm run dev`
+- The app should be working fine
+
 ## For practice
 
 The frontend is just a placeholder so one can delete everything for the backend and use it as practice to build authentication via MongoDB, Node and express. There is this repo for your reference of how I implemented the backend. Its far from perfect, so feel free to file an issue and suggest improvements.
