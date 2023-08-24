@@ -44,7 +44,6 @@ const RegisterForm = () => {
   }, [userInfo, navigate]);
 
   async function onSubmit(values) {
-    console.log(values);
     try {
       const res = await signup({
         email: values.email,

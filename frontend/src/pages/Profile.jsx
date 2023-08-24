@@ -37,7 +37,6 @@ const Profile = () => {
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   async function onSubmit(values) {
-    console.log(values);
     if (!values.password) {
       // Pass the existing password
       values.password = userInfo.password;
