@@ -14,7 +14,7 @@ Inspired from the mern auth implementation [tutorial](https://youtu.be/R4AhvYORZ
   - In root directory run `npm install`
 - Run the app
   - In root directory run `npm run dev`
-- The app should be working fine
+- The app should be working running on your local machine
 
 ## For practice
 
