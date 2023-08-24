@@ -26,4 +26,4 @@ The backend dependencies are in the root directory while the frontend has its ow
 
 ### Frontend template
 
-I made a repo containing the [frontend template]() for practice and there are further guidelines in that repo for you to follow along.
+I made a repo containing the [frontend template](https://github.com/Md-Ishmam-Iqbal/mern-auth-backend-practice-template/tree/main) for practice and there are further guidelines in that repo for you to follow along.
