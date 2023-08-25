@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  fe:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - be
+
+  be:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: development
+      PORT: 8000
+      MONGO_URI: "mongodb+srv://ishmam123:ishmam123@mernauth.pwdwhw3.mongodb.net/mernauth?retryWrites=true&w=majority"
+      JWT_SECRET: "abc123"
+
+volumes:
+  mongo-data:
